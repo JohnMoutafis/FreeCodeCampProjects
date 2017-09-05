@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>A Pomodoro Clock</title>
+  <link href="css/pomodoro_style.css" type="text/css">
+</head>
+<body>
+	<div class="container">
+		<div class="selectors row">
+			<div class="work-length-selector text-center col">
+				<h3>Work Length</h3>
+				<button class="btn btn-danger" id="work-minus" onClick="selectorAction(this)">-</button>
+				<span id="work">25</span>
+				<button class="btn btn-success" id="work-plus" onClick="selectorAction(this)">+</button>
+			</div>
+			<div class="short-break-length-selector text-center col">
+				<h3>Short Break</h3>
+				<button class="btn btn-danger" id="short-minus" onClick="selectorAction(this)">-</button>
+				<span id="short">5</span>
+				<button class="btn btn-success" id="short-plus" onClick="selectorAction(this)">+</button>
+			</div>
+			<div class="long-break-length-selector text-center col">
+				<h3>Long Break</h3>
+				<button class="btn btn-danger" id="long-minus" onClick="selectorAction(this)">-</button>
+				<span id="long">20</span>
+				<button class="btn btn-success" id="long-plus" onClick="selectorAction(this)">+</button>
+			</div>
+		</div>
+		<div class="clock" onClick="clock()">
+			<div class="timer">
+				<span id="minutes">01</span>:<span id="seconds">00</span>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="js/pomodoro.js" type="text/javascript"></script>
+</html>
