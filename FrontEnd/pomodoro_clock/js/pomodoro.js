@@ -4,14 +4,51 @@ const states = {
 	'LONG': 'LONG_BREAK'
 };
 
-var state = 'WORK';
+var curr_state = 'WORK';
+var workCircle = 0;
 var PAUSED = true;
 var minutes = document.getElementById('minutes');
 var seconds = document.getElementById('seconds');
 
+function stateClockInit(state) {
+  minutes.innerHTML = document.getElementById(state.toLowerCase()).innerHTML;
+  seconds.innerHTML = '00';
+}
+
+function startState(){
+  stateClockInit(curr_state);
+  switch(curr_state){
+		case 'WORK':
+			workCircle++;
+			timer(function(){changeState();});
+			break;
+		case 'SHORT':
+      timer(function(){changeState();});
+			break;
+		case 'LONG':
+			workCircle = 0;
+			timer(function(){changeState();});
+			break;
+  }
+}
+
+function changeState(){
+  if(curr_state === 'WORK'){
+    if(workCircle !== 4){
+      curr_state = 'SHORT';
+    } else {
+      curr_state = 'LONG';
+    }
+  } else {
+    curr_state = 'WORK';
+  }
+  startState();
+  return 0;
+}
+
 function selectorToClock(selectorId, curr_value){
 	if(PAUSED){
-		if(selectorId === state.toLowerCase()){
+		if(selectorId === curr_state.toLowerCase()){
 			minutes.innerHTML = curr_value.toString().padStart(2, '0');
 			seconds.innerHTML = '00';
 		}
@@ -32,23 +69,25 @@ function selectorAction(elem){
 	selectorToClock(args[0], current);
 }
 
-function timer(){
+function timer(callback){
 	var min = parseInt(minutes.innerHTML);
 	var sec = parseInt(seconds.innerHTML);
 	var interval = setInterval(function(){
 		if(!PAUSED){
+      console.log(curr_state);
+      console.log(workCircle);
 			sec--;
-		if(sec < 0){
-			sec = 59;
-			min--;
-			if(min < 0){
-				clearInterval(interval);
-				return true;
-			}
-		}
-		minutes.innerHTML = min.toString().padStart(2, '0');
-		seconds.innerHTML = sec.toString().padStart(2, '0');
-		}
+      if(sec < 0){
+        sec = 59;
+        min--;
+        if(min < 0){
+          clearInterval(interval);
+          return callback();
+        }
+      }
+      minutes.innerHTML = min.toString().padStart(2, '0');
+      seconds.innerHTML = sec.toString().padStart(2, '0');
+    }
 	}, 1000);
 }
 
@@ -56,29 +95,5 @@ function clock() {
 	PAUSED = !PAUSED;
 }
 
-$(document).ready(function(){
-	var workCircle = 0;
-	switch(state){
-		case 'WORK':
-			minutes.innerHTML = document.getElementById('work').innerHTML;
-			timer();
-			workCircle++;
-			state = 'SHORT';
-			break;
-		case 'SHORT':
-			if(workCircle !== 4){
-				minutes.innerHTML = document.getElementById('short').innerHTML;
-				timer();
-				state = 'WORK';
-			} else {
-				state = 'LONG';
-			}
-			break;
-		case 'LONG':
-			minutes.innerHTML = document.getElementById('long').innerHTML;
-			timer();
-			workCircle = 0;
-			state = 'WORK';
-			break;
-	}
-});
+$(document).on('ready', startState());
+
