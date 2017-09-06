@@ -1,22 +1,23 @@
-const states = {
-	'WORK': 'WORK',
-	'SHORT': 'SHORT_BREAK',
-	'LONG': 'LONG_BREAK'
+const stateColors = {
+	'WORK': ['#dc143c', '#00ff00'],
+	'SHORT': ['#00ff00', '#dc143c'],
+	'LONG': ['#6600ff', '#dc143c']
 };
 
 var curr_state = 'WORK';
+var init_time = 0;
 var workCircle = 0;
 var PAUSED = true;
 var minutes = document.getElementById('minutes');
 var seconds = document.getElementById('seconds');
 
-function stateClockInit(state) {
-  minutes.innerHTML = document.getElementById(state.toLowerCase()).innerHTML;
+function stateClockInit() {
+  minutes.innerHTML = document.getElementById(curr_state.toLowerCase()).innerHTML.padStart(2, '0');
   seconds.innerHTML = '00';
 }
 
 function startState(){
-  stateClockInit(curr_state);
+  stateClockInit();
   switch(curr_state){
 		case 'WORK':
 			workCircle++;
@@ -69,13 +70,21 @@ function selectorAction(elem){
 	selectorToClock(args[0], current);
 }
 
+function borderColor(min, sec){
+	var curr_time = min*60000 + sec*1000;
+	var percent = (curr_time/init_time)*100;
+	document.getElementById('clock-border').style.background = 'linear-gradient('
+		+ stateColors[curr_state][0] + ' ' + percent + '%, '
+		+ stateColors[curr_state][1] + ' ' + (100 - percent) + '%)';
+}
+
 function timer(callback){
-	var min = parseInt(minutes.innerHTML);
-	var sec = parseInt(seconds.innerHTML);
+  var min, sec;
+	init_time = parseInt(document.getElementById(curr_state.toLowerCase()).innerHTML)*60000;
 	var interval = setInterval(function(){
+    min = parseInt(minutes.innerHTML);
+    sec = parseInt(seconds.innerHTML);
 		if(!PAUSED){
-      console.log(curr_state);
-      console.log(workCircle);
 			sec--;
       if(sec < 0){
         sec = 59;
@@ -85,6 +94,7 @@ function timer(callback){
           return callback();
         }
       }
+      borderColor(min, sec);
       minutes.innerHTML = min.toString().padStart(2, '0');
       seconds.innerHTML = sec.toString().padStart(2, '0');
     }

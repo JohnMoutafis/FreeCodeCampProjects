@@ -21,12 +21,24 @@ h3 {
 	color: #FFF;
 }
 
+.clock-border {
+  width: 468px;
+	height: 468px;
+  position: relative;
+  margin: 10% auto;
+  background: #dc143c;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .clock {
 	width: 450px;
 	height: 450px;
-	border: 8px solid red;
+  position: absolute;
+	margin: 2% 2%;
+  z-index: 10;
+  background: #000;
 	border-radius: 50%;
-	margin: 10% auto;
 	cursor: pointer;
 }
 
