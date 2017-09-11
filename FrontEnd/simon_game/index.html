@@ -11,18 +11,16 @@
   <link rel="stylesheet" type="text/css" href="css/simon_game_style.css">
 </head>
 <body>
-  <div class="container-fluid">
-    <div class="wrapper">
-      <div class="shape" id="green"> </div>
-      <div class="shape" id="red"> </div>
-      <div class="shape" id="yellow"> </div>
-      <div class="shape" id="blue"> </div>
-      <div class="middleCircle">
-        <h1 class="text-center" id="gameTitle">Simon</h1>
-        <div>
-          <h2 class="text-center">--</h2>
-          <h5 class="text-center">COUNT</h5>
-        </div>
+  <div class="wrapper">
+    <div class="shape" id="green" onclick="shapeClick(this)"></div>
+    <div class="shape" id="red" onclick="shapeClick(this)"></div>
+    <div class="shape" id="yellow" onclick="shapeClick(this)"></div>
+    <div class="shape" id="blue" onclick="shapeClick(this)"></div>
+    <div class="middleCircle">
+      <h1 class="text-center" id="gameTitle">Simon</h1>
+      <div>
+        <h2 class="text-center">--</h2>
+        <h5 class="text-center">COUNT</h5>
       </div>
     </div>
   </div>
