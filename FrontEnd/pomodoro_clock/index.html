@@ -8,8 +8,12 @@
     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
   >
   <link rel="stylesheet" href="css/pomodoro_style.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lobster" />
 </head>
 <body>
+  <div class="title">
+    <h1 class="text-center">Yet Another Pomodoro Clock!</h1>
+  </div>
 	<div class="container">
 		<div class="selectors row">
 			<div class="work-length-selector text-center col">
@@ -33,12 +37,26 @@
 		</div>
 		<div class="clock-border" id="clock-border">
 			<div class="clock" onClick="clock()">
+        <div class="clock-title text-center" id="clock-title">
+          <h2>Work!</h2>
+        </div>
 				<div class="timer">
 					<span id="minutes">00</span>:<span id="seconds">00</span>
 				</div>
+        <div>
+          <h2 class="clock-subtitle text-center" id="clock-subtitle">Start</h2>
+        </div>
 			</div>
 		</div>
 	</div>
+  <footer>
+		<h4 class="text-center" id="about">
+      Coded by
+      <a href="https://www.linkedin.com/in/john-moutafis-b6a131127" target="_blank">
+        John Moutafis
+      </a>
+    </h4>
+  </footer>
 </body>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>

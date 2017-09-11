@@ -1,5 +1,6 @@
 body {
-	background: #000;
+	background: #161a1d;
+  color: seashell;
 }
 
 h3 {
@@ -17,8 +18,14 @@ h3 {
 	margin: 25px auto;
 }
 
+.title {
+  padding: 25px 0 10px 0;
+  font-family: Lobster, Helvetica, serif;
+	font-size: 5em;
+}
+
 .selectors {
-	color: #FFF;
+  font-family: Lobster, Helvetica, serif;
 }
 
 .clock-border {
@@ -37,17 +44,26 @@ h3 {
   position: absolute;
 	margin: 2% 2%;
   z-index: 10;
-  background: #000;
+  background: #161a1d;
 	border-radius: 50%;
 	cursor: pointer;
+}
+
+.clock-title {
+  font-size: 3em;
+  padding-top: 10%;
 }
 
 .timer {
 	position: relative;
 	float: left;
-	top: 48%;
+	top: 23%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-size: 9em;
-	color: #FFF;
+}
+
+.clock-subtitle {
+  padding-top: 20px;
+  font-size: 3em;
 }

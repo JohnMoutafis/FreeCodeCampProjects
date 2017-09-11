@@ -8,8 +8,10 @@ var curr_state = 'WORK';
 var init_time = 0;
 var workCircle = 0;
 var PAUSED = true;
+var clockTitle = document.getElementById('clock-title');
 var minutes = document.getElementById('minutes');
 var seconds = document.getElementById('seconds');
+var clockSubtitle = document.getElementById('clock-subtitle');
 
 function stateClockInit() {
   minutes.innerHTML = document.getElementById(curr_state.toLowerCase()).innerHTML.padStart(2, '0');
@@ -21,13 +23,16 @@ function startState(){
   switch(curr_state){
 		case 'WORK':
 			workCircle++;
+			clockTitle.innerHTML = 'Work!';
 			timer(function(){changeState();});
 			break;
 		case 'SHORT':
+			clockTitle.innerHTML = 'Break...';
       timer(function(){changeState();});
 			break;
 		case 'LONG':
 			workCircle = 0;
+			clockTitle.innerHTML = 'Relax...';
 			timer(function(){changeState();});
 			break;
   }
@@ -60,6 +65,10 @@ function selectorAction(elem){
 	var args = elem.id.split("-");
 	var current = parseInt(document.getElementById(args[0]).innerHTML);
 
+	if(args[0] === curr_state.toLowerCase()){
+		if(!PAUSED){clock();}
+	}
+
 	if(args[1] === 'plus') {
 		current++;
 	} else {
@@ -74,8 +83,10 @@ function borderColor(min, sec){
 	var curr_time = min*60000 + sec*1000;
 	var percent = (curr_time/init_time)*100;
 	document.getElementById('clock-border').style.background = 'linear-gradient('
+    + stateColors[curr_state][0] + ' 0%, '
 		+ stateColors[curr_state][0] + ' ' + percent + '%, '
-		+ stateColors[curr_state][1] + ' ' + (100 - percent) + '%)';
+		+ stateColors[curr_state][1] + ' ' + percent + '%, '
+		+ stateColors[curr_state][1] + ' 100%)';
 }
 
 function timer(callback){
@@ -103,6 +114,11 @@ function timer(callback){
 
 function clock() {
 	PAUSED = !PAUSED;
+	if(PAUSED){
+		clockSubtitle.innerHTML = 'Start';
+	} else {
+		clockSubtitle.innerHTML = 'Pause';
+	}
 }
 
 $(document).on('ready', startState());
